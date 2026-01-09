@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // Client URL
+        origin: "https://pediatrics-liard.vercel.app", // Client URL
         methods: ["GET", "POST"]
     }
 });
