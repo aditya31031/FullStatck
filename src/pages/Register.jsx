@@ -20,7 +20,7 @@ const Register = () => {
 
         const result = await register(formData.name, formData.email, formData.password, formData.phone);
         if (result.success) {
-            navigate('/profile');
+            navigate('/');
         } else {
             setError(result.error || 'Registration failed');
         }

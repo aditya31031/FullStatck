@@ -12,8 +12,10 @@ const Header = () => {
     // Notification State
     const [notifications, setNotifications] = useState([]);
     const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+    const [showUserDropdown, setShowUserDropdown] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
     const notifRef = useRef(null);
+    const userMenuRef = useRef(null);
 
     // Fetch Notifications
     const fetchNotifications = async () => {
@@ -63,6 +65,9 @@ const Header = () => {
             const handleClickOutside = (event) => {
                 if (notifRef.current && !notifRef.current.contains(event.target)) {
                     setShowNotifDropdown(false);
+                }
+                if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+                    setShowUserDropdown(false);
                 }
             };
 
@@ -145,20 +150,36 @@ const Header = () => {
                                 )}
                             </div>
 
-                            <Link to="/profile" className="user-welcome" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <User size={18} className="icon-mr" />
-                                <span>{user.name}</span>
-                            </Link>
                             {user.role !== 'admin' && (
-                                <Link to="/dashboard" className="btn btn-outline btn-sm btn-box">
+                                <Link to="/dashboard" className="btn btn-outline btn-sm btn-box mobile-booking-btn">
                                     <Calendar size={16} />
-                                    Booking
+                                    <span className="mobile-hidden">Booking</span>
                                 </Link>
                             )}
-                            <button onClick={handleLogout} className="btn btn-outline btn-sm btn-box">
-                                <LogOut size={16} />
-                                Logout
-                            </button>
+
+                            {/* USER DROPDOWN */}
+                            <div className="user-menu-container" ref={userMenuRef}>
+                                <button className="btn-icon-header user-menu-btn" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+                                    <div className="user-avatar-small">
+                                        <User size={18} />
+                                    </div>
+                                    <span className="user-name-header mobile-hidden">{user.name.split(' ')[0]}</span>
+                                </button>
+
+                                {showUserDropdown && (
+                                    <div className="user-dropdown-menu">
+                                        <Link to="/profile" className="dropdown-item" onClick={() => setShowUserDropdown(false)}>
+                                            <User size={16} />
+                                            <span>Profile</span>
+                                        </Link>
+                                        <div className="dropdown-divider"></div>
+                                        <button onClick={handleLogout} className="dropdown-item text-danger">
+                                            <LogOut size={16} />
+                                            <span>Logout</span>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </>
                     ) : (
                         <>
