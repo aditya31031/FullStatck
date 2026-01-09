@@ -1,0 +1,64 @@
+.footer {
+    background-color: white;
+    border-top: 1px solid var(--secondary-color);
+    padding: 4rem 0 2rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.tagline {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer-section h4 {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+}
+
+.footer-section p {
+    color: var(--text-color);
+    margin-bottom: 0.85rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ml-icon {
+    margin-left: 1.75rem;
+    /* align with text after icon */
+}
+
+.closed {
+    color: var(--error-color);
+    font-weight: 500;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid var(--secondary-color);
+    padding-top: 2rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

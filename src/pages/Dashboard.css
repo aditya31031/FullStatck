@@ -1,0 +1,572 @@
+.dashboard-page {
+    padding: 4rem 1rem;
+    min-height: 70vh;
+}
+
+.dashboard-header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.dashboard-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.btn-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.btn-icon-circle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.dashboard-header p {
+    color: var(--text-light);
+}
+
+.empty-dashboard {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--secondary-color);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.appointment-card {
+    background: white;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.appointment-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+}
+
+.app-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.badge-booked {
+    background: #ecfdf5;
+    color: var(--success-color);
+}
+
+.app-details {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.btn-danger {
+    width: 100%;
+    border-color: #fee2e2;
+    color: var(--error-color);
+    background: white;
+}
+
+.btn-danger:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
+/* NOTIFICATIONS (Legacy support if needed, mostly moved to separate page) */
+.notifications-section {
+    margin-bottom: 2.5rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.notifications-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.notification-item {
+    background: #fff;
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.notification-item.warning {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.notification-item h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.notification-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.notification-item.success {
+    border-left-color: var(--success-color);
+    background: #f0fdf4;
+}
+
+.notification-item.info {
+    border-left-color: var(--accent-color);
+    background: #eff6ff;
+}
+
+.no-notifs {
+    text-align: center;
+    color: #9ca3af;
+    font-style: italic;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px dashed #e5e7eb;
+}
+
+.notif-time {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Back Button */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: var(--primary-color);
+}
+
+/* History Section */
+.history-section {
+    margin-top: 3rem;
+}
+
+.past-card {
+    opacity: 0.8;
+}
+
+/* Patient Stories Section */
+.patient-stories-section {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.patient-stories-section h3 {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.stories-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.story-tag {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.story-tag:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: #f0f9ff;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* CHILD WELLNESS PROFILE */
+.wellness-section {
+    margin-bottom: 3rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.bg-blue {
+    background: #3b82f6;
+}
+
+.bg-green {
+    background: #10b981;
+}
+
+.bg-purple {
+    background: #8b5cf6;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Child Selector */
+.child-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+}
+
+/* Child Selector List */
+.child-selector-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.child-list-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    scrollbar-width: thin;
+}
+
+.child-profile-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.child-profile-pill.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.child-avatar-pill {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.child-profile-pill.active .child-avatar-pill {
+    background: white;
+    color: var(--primary-color);
+}
+
+.child-profile-pill:hover:not(.active) {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.scrolling-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.empty-state-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+.empty-timeline {
+    padding: 1rem;
+    text-align: center;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+/* VACCINATION TRACKER */
+.vaccine-section {
+    margin-bottom: 3rem;
+    /* background: white; */
+    /* padding: 2rem; */
+    border-radius: var(--radius-lg);
+    /* box-shadow: var(--shadow-sm); */
+}
+
+.vaccine-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.vaccine-timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid #e2e8f0;
+}
+
+.vaccine-card {
+    position: relative;
+    background: white;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.vaccine-card:last-child {
+    margin-bottom: 0;
+}
+
+.vaccine-status-indicator {
+    position: absolute;
+    left: -2.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    border: 3px solid #f0f9ff;
+}
+
+.vaccine-card.completed .vaccine-status-indicator {
+    background: #10b981;
+}
+
+.vaccine-card.overdue .vaccine-status-indicator {
+    background: #ef4444;
+}
+
+.vaccine-card.upcoming .vaccine-status-indicator {
+    background: #3b82f6;
+}
+
+.vaccine-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--accent-color);
+}
+
+.vaccine-age {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.vaccine-date {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.vaccine-date span:first-child {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.status-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.completed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.overdue {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.upcoming {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+    .vaccine-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .vaccine-date {
+        align-items: flex-start;
+        text-align: left;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
