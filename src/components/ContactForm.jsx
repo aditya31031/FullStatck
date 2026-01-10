@@ -4,8 +4,9 @@ import toast from 'react-hot-toast';
 import './ContactForm.css';
 
 const ContactForm = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', message: '', rating: 5 });
     const [loading, setLoading] = useState(false);
+    const [hoverRating, setHoverRating] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,8 +19,8 @@ const ContactForm = () => {
             });
 
             if (res.ok) {
-                toast.success('Message sent! It has been added to our Patient Stories.');
-                setFormData({ name: '', email: '', message: '' });
+                toast.success('Thank you for your feedback!');
+                setFormData({ name: '', email: '', message: '', rating: 5 });
             } else {
                 toast.error('Failed to send message.');
             }
@@ -34,10 +35,29 @@ const ContactForm = () => {
     return (
         <div className="contact-form-container">
             <div className="form-header">
-                <h3>Get in Touch</h3>
-                <p>Have a question? Send us a message.</p>
+                <h3>Feedback</h3>
             </div>
             <form onSubmit={handleSubmit} className="contact-form">
+
+                {/* Star Rating Section */}
+                <div className="form-group text-center">
+                    <label className="form-label mb-2">Your Rating</label>
+                    <div className="star-rating-wrapper">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                                key={star}
+                                type="button"
+                                className={`star-btn ${star <= (hoverRating || formData.rating) ? 'active' : ''}`}
+                                onClick={() => setFormData({ ...formData, rating: star })}
+                                onMouseEnter={() => setHoverRating(star)}
+                                onMouseLeave={() => setHoverRating(0)}
+                            >
+                                ★
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 <div className="form-group">
                     <label className="form-label">Your Name</label>
                     <div className="input-wrapper">
@@ -48,7 +68,7 @@ const ContactForm = () => {
                             required
                             value={formData.name}
                             onChange={e => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="John Doe"
+                            placeholder="Enter your name"
                         />
                     </div>
                 </div>
@@ -62,7 +82,7 @@ const ContactForm = () => {
                             required
                             value={formData.email}
                             onChange={e => setFormData({ ...formData, email: e.target.value })}
-                            placeholder="john@example.com"
+                            placeholder="Name@example.com"
                         />
                     </div>
                 </div>
@@ -76,7 +96,7 @@ const ContactForm = () => {
                             required
                             value={formData.message}
                             onChange={e => setFormData({ ...formData, message: e.target.value })}
-                            placeholder="How can we help you?"
+                            placeholder="Please share your Feedback?"
                         ></textarea>
                     </div>
                 </div>

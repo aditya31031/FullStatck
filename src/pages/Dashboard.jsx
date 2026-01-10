@@ -112,19 +112,27 @@ const Dashboard = () => {
                 )}
             </div>
 
+            import HealthCard from '../components/HealthCard';
+
+            // Inside Dashboard component...
+
             {/* CHILD WELLNESS PROFILE */}
             {selectedChild ? (
                 <div className="wellness-section">
-                    <div className="stats-grid">
-                        <div className="stat-card">
-                            <div className="stat-icon bg-blue">
-                                <Activity size={20} />
-                            </div>
-                            <div className="stat-info">
-                                <span className="stat-label">Blood Group</span>
-                                <span className="stat-value">{selectedChild.bloodGroup || '--'}</span>
-                            </div>
-                        </div>
+                    <div className="section-intro">
+                        <h3>Digital Health Card</h3>
+                        <p className="text-muted-sm">Official clinic identity for {selectedChild.name}</p>
+                    </div>
+
+                    <div className="health-card-wrapper fade-in-up">
+                        <HealthCard
+                            child={selectedChild}
+                            parentName={user.name}
+                            parentPhone={user.phone}
+                        />
+                    </div>
+
+                    <div className="stats-grid mt-4">
                         <div className="stat-card">
                             <div className="stat-icon bg-green">
                                 <Weight size={20} />

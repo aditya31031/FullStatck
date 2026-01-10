@@ -89,11 +89,11 @@ const Home = () => {
     // Format real reviews to match testimonial structure
     const formattedRealReviews = realReviews.map(review => ({
         name: review.name,
-        verified: true, // Assuming online submissions are valid for now
+        verified: true,
         date: new Date(review.date).toLocaleDateString(),
-        tags: ["Recent Story"], // Tag to identify them
+        tags: ["Patient Feedback"],
         text: review.message,
-        recommend: true
+        rating: review.rating || 5 // Include rating
     }));
 
     const allTestimonials = [...formattedRealReviews, ...testimonials];
@@ -285,13 +285,27 @@ const Home = () => {
                                         <Quote className="quote-icon-bg" size={24} />
                                     </div>
 
-                                    {review.recommend !== undefined && (
-                                        <div className={`recommend-row ${review.recommend ? 'yes' : 'no'}`}>
-                                            {review.recommend ?
-                                                <><span className="thumb-icon">👍</span> Recommends</> :
-                                                <><span className="thumb-icon">👎</span> Does Not Recommend</>
-                                            }
+                                    {/* Star Rating Display */}
+                                    {review.rating ? (
+                                        <div className="rating-row mb-2" style={{ display: 'flex', gap: '2px' }}>
+                                            {[...Array(5)].map((_, idx) => (
+                                                <Star
+                                                    key={idx}
+                                                    size={16}
+                                                    fill={idx < review.rating ? "#fbbf24" : "#e2e8f0"}
+                                                    color={idx < review.rating ? "#fbbf24" : "#e2e8f0"}
+                                                />
+                                            ))}
                                         </div>
+                                    ) : (
+                                        review.recommend !== undefined && (
+                                            <div className={`recommend-row ${review.recommend ? 'yes' : 'no'}`}>
+                                                {review.recommend ?
+                                                    <><span className="thumb-icon">👍</span> Recommends</> :
+                                                    <><span className="thumb-icon">👎</span> Does Not Recommend</>
+                                                }
+                                            </div>
+                                        )
                                     )}
 
                                     {review.tags && review.tags.length > 0 && (
