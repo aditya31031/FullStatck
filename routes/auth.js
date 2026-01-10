@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
     try {
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ msg: 'Invalid Credentials' });
+            return res.status(400).json({ msg: 'User with this email was not found' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -148,7 +148,7 @@ router.post('/forgot-password', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
+            return res.status(404).json({ msg: 'User with this email was not found' });
         }
 
         // Generate Token
