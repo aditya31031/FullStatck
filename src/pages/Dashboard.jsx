@@ -106,7 +106,9 @@ const Dashboard = () => {
 
                     </div>
                 ) : (
-                    <p>No children profiles added yet.</p>
+                    <div className="no-child-alert" onClick={() => navigate('/profile', { state: { activeTab: 'children', openAddChild: true } })} style={{ cursor: 'pointer' }}>
+                        <p>No children profiles added yet. <span style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>Add now</span></p>
+                    </div>
                 )}
             </div>
 

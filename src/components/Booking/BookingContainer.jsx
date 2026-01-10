@@ -183,7 +183,7 @@ const BookingContainer = () => {
                                                     </p>
                                                     <button
                                                         className="btn btn-link"
-                                                        onClick={() => navigate('/profile')}
+                                                        onClick={() => navigate('/profile', { state: { activeTab: 'children', openAddChild: true } })}
                                                         style={{ padding: 0, marginTop: '0.25rem', fontSize: '0.9rem', textDecoration: 'underline' }}
                                                     >
                                                         Add your baby details first to book faster!

@@ -31,8 +31,13 @@ const Profile = () => {
 
     // Check for deep link to tab
     useEffect(() => {
-        if (location.state && location.state.activeTab) {
-            setActiveTab(location.state.activeTab);
+        if (location.state) {
+            if (location.state.activeTab) {
+                setActiveTab(location.state.activeTab);
+            }
+            if (location.state.openAddChild) {
+                setShowAddChild(true);
+            }
         }
     }, [location]);
 
@@ -169,8 +174,8 @@ const Profile = () => {
 
                 {/* Header Back Link */}
                 <div className="profile-top-nav">
-                    <Link to="/dashboard" className="btn-back">
-                        <ArrowLeft size={18} /> Back to Dashboard
+                    <Link to="/" className="btn btn-outline btn-sm btn-box" style={{ marginBottom: '2rem', alignSelf: 'flex-start' }}>
+                        <ArrowLeft size={16} /> Back to Home
                     </Link>
                 </div>
 
