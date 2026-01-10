@@ -9,21 +9,37 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check for token in local storage
-        const token = localStorage.getItem('token');
-        if (token) {
-            try {
-                const savedUser = JSON.parse(localStorage.getItem('user'));
-                if (savedUser) {
-                    setUser(savedUser);
+        const loadUser = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    // Optimistic UI: Load from storage first if available
+                    const savedUser = JSON.parse(localStorage.getItem('user'));
+                    if (savedUser) setUser(savedUser);
+
+                    // Then verify with server for fresh data
+                    const res = await fetch('https://pediatricsbackend.onrender.com/api/auth/me', {
+                        headers: { 'x-auth-token': token }
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUser(data);
+                        localStorage.setItem('user', JSON.stringify(data)); // Sync storage
+                    } else {
+                        // If token invalid, clear everything
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                        setUser(null);
+                    }
+                } catch (error) {
+                    console.error("Auth check failed", error);
+                    // Don't clear immediately on network error, keep stale data
                 }
-            } catch (error) {
-                console.error("Failed to parse user from local storage", error);
-                localStorage.removeItem('user'); // cleanup bad data
-                localStorage.removeItem('token');
             }
-        }
-        setLoading(false);
+            setLoading(false);
+        };
+        loadUser();
     }, []);
 
     const login = async (email, password) => {
