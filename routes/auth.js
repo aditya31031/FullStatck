@@ -25,6 +25,15 @@ router.post('/register', async (req, res) => {
         await user.save();
         await createNotification(user.id, `Welcome to Dr. Sai Manohar's Clinic! We're glad to have you here.`, 'success');
 
+        // Emit real-time notification
+        const io = req.app.get('io');
+        io.emit(`notification:${user.id}`, {
+            title: 'Welcome!',
+            message: `Welcome to Dr. Sai Manohar's Clinic! We're glad to have you here.`,
+            read: false,
+            createdAt: new Date()
+        });
+
         const payload = { user: { id: user.id, role: user.role } };
 
         jwt.sign(payload, process.env.JWT_SECRET || 'secret', { expiresIn: 360000 }, (err, token) => {
