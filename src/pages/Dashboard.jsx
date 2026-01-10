@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Calendar, Clock, User, XCircle, ArrowLeft, Activity, Syringe, Ruler, Weight, Bell } from 'lucide-react';
 import toast from 'react-hot-toast';
+import HealthCard from '../components/HealthCard';
 import './Dashboard.css';
 
 // Mock Data Removed
@@ -111,10 +112,6 @@ const Dashboard = () => {
                     </div>
                 )}
             </div>
-
-            import HealthCard from '../components/HealthCard';
-
-            // Inside Dashboard component...
 
             {/* CHILD WELLNESS PROFILE */}
             {selectedChild ? (
