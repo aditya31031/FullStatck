@@ -147,7 +147,7 @@ router.put('/change-password', auth, async (req, res) => {
 // Forgot Password
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
-    const { email } = req.body;
+
     try {
         const normalizedEmail = email.trim();
         // Case-insensitive search
