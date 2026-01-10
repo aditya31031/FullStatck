@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const res = await fetch('https://pediatricsbackend-4hii.onrender.comr.com/api/auth/login', {
+            const res = await fetch('https://pediatricsbackend-4hii.onrender.com/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
