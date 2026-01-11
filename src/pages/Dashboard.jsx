@@ -71,6 +71,57 @@ const Dashboard = () => {
         }
     };
 
+    const [queueData, setQueueData] = useState([]);
+
+    const fetchQueueData = async () => {
+        try {
+            const res = await fetch('https://pediatricsbackend-4hii.onrender.com/api/appointments/today-public');
+            const data = await res.json();
+            setQueueData(data);
+        } catch (err) {
+            console.error("Failed to fetch queue data", err);
+        }
+    };
+
+    useEffect(() => {
+        fetchQueueData();
+        const interval = setInterval(fetchQueueData, 30000); // Refresh every 30s
+        return () => clearInterval(interval);
+    }, []);
+
+    // Calculate Queue Stats for the logged-in user
+    const getQueueStats = () => {
+        // Find my appointment today
+        const todayStr = new Date().toISOString().split('T')[0];
+        const myAppt = appointments.find(a =>
+            a.status === 'booked' &&
+            a.date === todayStr
+        );
+
+        if (!myAppt) return null;
+
+        // Find my position in the public queue
+        const myIndex = queueData.findIndex(q => q.id === myAppt._id);
+        if (myIndex === -1) return null;
+
+        const myToken = myIndex + 1;
+
+        // Find current token (first 'checked-in' or 'in-progress', or just the first booked if none)
+        // Actually, 'checked-in' means they are waiting. 'in-progress' means they are with doctor.
+        // We want to know how many people are AHEAD of me.
+
+        // Filter queue items before me
+        const peopleAhead = queueData.slice(0, myIndex).filter(q =>
+            q.status === 'booked' || q.status === 'checked-in' || q.status === 'in-progress'
+        ).length;
+
+        const estWaitTime = peopleAhead * 15; // 15 mins per patient approx
+
+        return { myToken, peopleAhead, estWaitTime };
+    };
+
+    const queueStats = getQueueStats();
+
     const formatTime = (time24) => {
         if (!time24) return '';
         const [hours, minutes] = time24.split(':');
@@ -78,6 +129,29 @@ const Dashboard = () => {
         const ampm = h >= 12 ? 'PM' : 'AM';
         const h12 = h % 12 || 12;
         return `${h12}:${minutes} ${ampm}`;
+    };
+
+    const [historyFilter, setHistoryFilter] = useState('This Year');
+
+    const getFilteredHistory = () => {
+        if (!appointments) return [];
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
+        return appointments.filter(a => {
+            const appDate = new Date(a.date);
+            const isCompleted = a.status === 'completed' || new Date(a.date) < new Date().setHours(0, 0, 0, 0);
+            if (!isCompleted) return false;
+
+            if (historyFilter === 'This Year') {
+                return appDate.getFullYear() === currentYear;
+            } else if (historyFilter === 'Last Year') {
+                return appDate.getFullYear() === currentYear - 1;
+            } else if (historyFilter === 'All Time') {
+                return true;
+            }
+            return false;
+        });
     };
 
     if (loading || isLoading) return <div className="loading-screen">Loading...</div>;
@@ -95,6 +169,32 @@ const Dashboard = () => {
                         <Bell size={24} />
                     </Link>
                 </div>
+
+                {/* QUEUE CARD - Only show if I have an appointment today */}
+                {queueStats && (
+                    <div className="queue-card fade-in-up" style={{ marginBottom: '1.5rem', background: 'linear-gradient(135deg, #4f46e5 0%, #3730a3 100%)', color: 'white', padding: '1.5rem', borderRadius: '1.5rem', boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.4)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div>
+                                <h3 style={{ margin: 0, fontSize: '1.1rem', color: 'rgba(255,255,255,0.9)' }}>Live Queue Status</h3>
+                                <p style={{ margin: '0.25rem 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>Updates in real-time</p>
+                            </div>
+                            <div style={{ background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: '600' }}>
+                                Your Token: #{queueStats.myToken}
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem' }}>
+                            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '1rem', textAlign: 'center' }}>
+                                <div style={{ fontSize: '1.75rem', fontWeight: '700' }}>{queueStats.peopleAhead}</div>
+                                <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)' }}>People Ahead</div>
+                            </div>
+                            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '1rem', textAlign: 'center' }}>
+                                <div style={{ fontSize: '1.75rem', fontWeight: '700' }}>{queueStats.estWaitTime}<span style={{ fontSize: '1rem' }}>m</span></div>
+                                <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)' }}>Est. Wait Time</div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {children.length > 0 ? (
                     <div className="child-selector-container">
@@ -242,60 +342,67 @@ const Dashboard = () => {
 
             {/* PAST & COMPLETED HISTORY */}
             <div className="appointments-section history-section" style={{ marginTop: '3rem' }}>
-                <h3><Clock size={20} /> Visit History</h3>
-                <div className="cards-grid">
-                    {appointments
-                        .filter(a => a.status === 'completed' || new Date(a.date) < new Date().setHours(0, 0, 0, 0))
-                        .length === 0 ? <p className="text-muted">No past visits.</p> :
-                        appointments
-                            .filter(a => a.status === 'completed' || new Date(a.date) < new Date().setHours(0, 0, 0, 0))
-                            .map(app => (
-                                <div key={app._id} className={`appointment-card visit-history-card ${app.status === 'completed' ? 'visited' : ''}`}>
-                                    <div className="card-header" style={{ background: app.status === 'completed' ? '#f0fdf4' : '#f8fafc', borderBottomColor: app.status === 'completed' ? '#dcfce7' : '#f1f5f9' }}>
-                                        <div className="card-date-strip">
-                                            <Calendar size={16} color={app.status === 'completed' ? '#166534' : '#64748b'} />
-                                            <span>{app.date}</span>
-                                        </div>
-                                        <div className="app-status"
-                                            style={{
-                                                background: app.status === 'completed' ? '#dcfce7' : '#e5e7eb',
-                                                color: app.status === 'completed' ? '#166534' : '#374151'
-                                            }}>
-                                            {app.status === 'completed' ? 'Visited ✅' : app.status}
-                                        </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <h3><Clock size={20} /> Visit History</h3>
+                    <select
+                        className="form-select-sm"
+                        value={historyFilter}
+                        onChange={(e) => setHistoryFilter(e.target.value)}
+                        style={{
+                            padding: '0.4rem 0.8rem',
+                            borderRadius: '0.5rem',
+                            border: '1px solid #e2e8f0',
+                            fontSize: '0.9rem',
+                            outline: 'none',
+                            background: 'white',
+                            color: '#475569',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <option>This Year</option>
+                        <option>Last Year</option>
+                        <option>All Time</option>
+                    </select>
+                </div>
+
+                <div className="history-grid">
+                    {getFilteredHistory().length === 0 ? <p className="text-muted">No past visits found.</p> :
+                        getFilteredHistory().map(app => (
+                            <div key={app._id} className="appointment-card medium-card">
+                                <div className="card-header" style={{ background: app.status === 'completed' ? '#f0fdf4' : '#f8fafc', padding: '0.75rem 1rem' }}>
+                                    <div className="card-date-strip">
+                                        <Calendar size={14} color="#166534" />
+                                        <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>{app.date}</span>
                                     </div>
+                                    <span className="scrolling-name" style={{ fontSize: '0.8rem', color: '#64748b' }}>{formatTime(app.time)}</span>
+                                </div>
 
-                                    <div className="card-body">
-                                        <div className="patient-info-row">
-                                            <span className="patient-name">{app.patientName}</span>
-                                        </div>
-
-                                        <div className="time-row">
-                                            <Clock size={16} color="#94a3b8" />
-                                            <span>{formatTime(app.time)}</span>
-                                            <span style={{ margin: '0 0.5rem', color: '#cbd5e1' }}>|</span>
-                                            <Activity size={16} color="#94a3b8" />
-                                            <span>{app.category}</span>
-                                        </div>
-
-                                        <div className="card-actions">
-                                            <button
-                                                className="btn-modern btn-primary-soft"
-                                                style={{ width: '100%' }}
-                                                onClick={() => navigate('/#book-appointment')}
-                                            >
-                                                Book Again
-                                            </button>
-                                        </div>
+                                <div className="card-body">
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                        <span className="patient-name" style={{ fontSize: '1rem' }}>{app.patientName}</span>
+                                        <span className="category-badge">{app.category}</span>
+                                    </div>
+                                    <div style={{ fontSize: '0.85rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        {app.status === 'completed' ? <span style={{ color: '#16a34a', fontWeight: '500' }}>Visited ✅</span> : <span>{app.status}</span>}
                                     </div>
                                 </div>
-                            ))
+                                <div className="card-footer">
+                                    <button
+                                        className="btn-text btn-sm"
+                                        style={{ width: '100%', textAlign: 'center', color: '#3b82f6' }}
+                                        onClick={() => navigate('/#book-appointment')}
+                                    >
+                                        Book Again
+                                    </button>
+                                </div>
+                            </div>
+                        ))
                     }
                 </div>
-            </div>
-            {/* PATIENT STORIES / TOPICS */}
+                {/* PATIENT STORIES / TOPICS */}
 
-        </div >
+            </div >
+        </div>
     );
 };
 

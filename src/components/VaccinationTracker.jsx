@@ -3,20 +3,7 @@ import { CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-const VACCINE_SCHEDULE = [
-    { age: 'Birth', vaccines: ['BCG', 'OPV 0', 'Hep-B 1'] },
-    { age: '6 Weeks', vaccines: ['DTwP 1', 'IPV 1', 'Hep-B 2', 'Hib 1', 'Rotavirus 1', 'PCV 1'] },
-    { age: '10 Weeks', vaccines: ['DTwP 2', 'IPV 2', 'Hib 2', 'Rotavirus 2', 'PCV 2'] },
-    { age: '14 Weeks', vaccines: ['DTwP 3', 'IPV 3', 'Hib 3', 'Rotavirus 3', 'PCV 3'] },
-    { age: '6 Months', vaccines: ['OPV 1', 'Hep-B 3'] },
-    { age: '9 Months', vaccines: ['MMR 1'] },
-    { age: '9-12 Months', vaccines: ['Typhoid Conjugate'] },
-    { age: '15 Months', vaccines: ['MMR 2', 'Varicella 1', 'PCV Booster'] },
-    { age: '16-18 Months', vaccines: ['DTwP B1', 'IPV B1', 'Hib B1'] },
-    { age: '18 Months', vaccines: ['Hep-A 1'] },
-    { age: '2 Years', vaccines: ['Typhoid Booster'] },
-    { age: '4-6 Years', vaccines: ['DTwP B2', 'OPV 3', 'Varicella 2', 'MMR 3'] },
-];
+const VACCINE_SCHEDULE = [];
 
 const VaccinationTracker = ({ child, onUpdate }) => {
     const [loading, setLoading] = useState(false);
@@ -29,7 +16,7 @@ const VaccinationTracker = ({ child, onUpdate }) => {
     // Calculate Progress
     const totalVaccines = VACCINE_SCHEDULE.reduce((acc, slot) => acc + slot.vaccines.length, 0);
     const completedVaccines = child.vaccinations?.filter(v => v.status === 'completed').length || 0;
-    const progressPercentage = Math.round((completedVaccines / totalVaccines) * 100);
+    const progressPercentage = totalVaccines === 0 ? 0 : Math.round((completedVaccines / totalVaccines) * 100);
 
     const toggleVaccine = async (vaccineName) => {
         if (loading) return;

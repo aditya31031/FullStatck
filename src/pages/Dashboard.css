@@ -434,8 +434,47 @@
     border: 2px dashed #e2e8f0;
 }
 
-.empty-dashboard p,
-.empty-state-card p {
-    color: #94a3b8;
-    margin-bottom: 1.5rem;
+
+/* History Grid - Medium Cards */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.medium-card {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.medium-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: #94a3b8;
+}
+
+.medium-card .card-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.medium-card .card-footer {
+    border-top: 1px solid #f1f5f9;
+    padding: 0.75rem 1rem;
+    background: #fafafa;
+}
+
+.category-badge {
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
 }
