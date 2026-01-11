@@ -119,8 +119,6 @@ const ReceptionistDashboard = () => {
                 headers: { 'x-auth-token': token }
             });
             setAppointments(res.data);
-            console.log("User Data:", res.data); // Debugging
-            console.log("Appointments Data:", res.data); // Debugging
         } catch (err) {
             console.error(err);
         }
@@ -202,6 +200,15 @@ const ReceptionistDashboard = () => {
         }
     };
 
+    const formatTime = (time24) => {
+        if (!time24) return '';
+        const [hours, minutes] = time24.split(':');
+        const h = parseInt(hours, 10);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        return `${h12}:${minutes} ${ampm}`;
+    };
+
     return (
         <div className="admin-dashboard container">
             <div className="admin-header">
@@ -243,7 +250,7 @@ const ReceptionistDashboard = () => {
 
                                 return nextAppt ? (
                                     <div style={{ fontWeight: '600', fontSize: '0.9rem' }}>
-                                        {nextAppt.time} - {nextAppt.patientName}
+                                        {formatTime(nextAppt.time)} - {nextAppt.patientName}
                                     </div>
                                 ) : (
                                     <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>No pending visits</div>
@@ -364,7 +371,7 @@ const ReceptionistDashboard = () => {
                                 getFilteredAppointments().map(app => (
                                     <tr key={app._id}>
                                         <td>
-                                            <div style={{ fontWeight: '600', color: '#334155' }}>{app.time}</div>
+                                            <div style={{ fontWeight: '600', color: '#334155' }}>{formatTime(app.time)}</div>
                                             <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{new Date(app.date).toLocaleDateString()}</div>
                                         </td>
                                         <td>
@@ -377,7 +384,6 @@ const ReceptionistDashboard = () => {
                                                     <div style={{ fontWeight: '500', color: '#334155' }}>{app.userId.name}</div>
                                                     <div style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                                                         <Phone size={10} /> {app.userId.phone || 'N/A'}
-                                                        {console.log(app, "sss")}
                                                     </div>
                                                 </div>
                                             ) : (
@@ -386,10 +392,31 @@ const ReceptionistDashboard = () => {
                                         </td>
                                         <td>Dr. Sai Manohar</td>
                                         <td><span className="category-badge">{app.category}</span></td>
-                                        <td><span className={`status-badge ${app.status}`}>{app.status}</span></td>
+                                        <td><span className={`status-badge ${app.status}`}>{app.status === 'checked-in' ? 'Waiting 🕒' : app.status}</span></td>
                                         <td>
                                             <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                                {app.status !== 'completed' && (
+                                                {app.status === 'booked' && (
+                                                    <button
+                                                        className="btn btn-sm"
+                                                        onClick={async () => {
+                                                            try {
+                                                                const token = localStorage.getItem('token');
+                                                                await axios.put(`${import.meta.env.VITE_API_URL}/api/appointments/${app._id}/check-in`, {}, {
+                                                                    headers: { 'x-auth-token': token }
+                                                                });
+                                                                toast.success('Patient Checked In');
+                                                                fetchAppointments();
+                                                            } catch (err) {
+                                                                toast.error('Check-in Failed');
+                                                            }
+                                                        }}
+                                                        style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem', background: '#dbeafe', color: '#1e40af', border: 'none' }}
+                                                        title="Mark Arrived"
+                                                    >
+                                                        Check In
+                                                    </button>
+                                                )}
+                                                {app.status === 'checked-in' && (
                                                     <button
                                                         className="btn btn-sm btn-primary"
                                                         onClick={async () => {
@@ -411,7 +438,7 @@ const ReceptionistDashboard = () => {
                                                         <Activity size={12} /> Done
                                                     </button>
                                                 )}
-                                                {app.status !== 'completed' && (
+                                                {app.status !== 'completed' && app.status !== 'checked-in' && (
                                                     <button
                                                         className="btn btn-sm btn-outline"
                                                         onClick={() => openRescheduleModal(app)}
@@ -492,7 +519,7 @@ const ReceptionistDashboard = () => {
                                             )}
                                         </div>
 
-                                        <div className="grid-2-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                        <div className="grid-responsive" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem', alignItems: 'end' }}>
                                             <div className="form-group-modern" style={{ gridColumn: '1 / -1' }}>
                                                 <label>Child Name</label>
                                                 <input
@@ -529,7 +556,7 @@ const ReceptionistDashboard = () => {
                                                     value={child.bloodGroup}
                                                     onChange={e => handleChildChange(index, 'bloodGroup', e.target.value)}
                                                 >
-                                                    <option value="">Select Blood Group </option>
+                                                    <option value="">Select</option>
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
                                                     <option value="B+">B+</option>

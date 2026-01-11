@@ -71,6 +71,15 @@ const Dashboard = () => {
         }
     };
 
+    const formatTime = (time24) => {
+        if (!time24) return '';
+        const [hours, minutes] = time24.split(':');
+        const h = parseInt(hours, 10);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        return `${h12}:${minutes} ${ampm}`;
+    };
+
     if (loading || isLoading) return <div className="loading-screen">Loading...</div>;
 
     return (
@@ -206,7 +215,7 @@ const Dashboard = () => {
 
                                         <div className="time-row">
                                             <Clock size={16} className="text-primary" />
-                                            <span>{app.time}</span>
+                                            <span>{formatTime(app.time)}</span>
                                         </div>
 
                                         <div className="card-actions">
@@ -263,7 +272,7 @@ const Dashboard = () => {
 
                                         <div className="time-row">
                                             <Clock size={16} color="#94a3b8" />
-                                            <span>{app.time}</span>
+                                            <span>{formatTime(app.time)}</span>
                                             <span style={{ margin: '0 0.5rem', color: '#cbd5e1' }}>|</span>
                                             <Activity size={16} color="#94a3b8" />
                                             <span>{app.category}</span>
