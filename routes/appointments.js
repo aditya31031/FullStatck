@@ -217,6 +217,35 @@ router.put('/:id', [auth, require('../middleware/staff')], async (req, res) => {
     }
 });
 
+// Check-in Appointment (Receptionist)
+router.put('/:id/check-in', [auth, require('../middleware/staff')], async (req, res) => {
+    try {
+        const appointment = await Appointment.findById(req.params.id);
+        if (!appointment) return res.status(404).json({ msg: 'Appointment not found' });
+
+        appointment.status = 'checked-in';
+        const updatedAppt = await appointment.save();
+
+        // Notify User
+        const msg = "You have been checked in. Please wait for your turn.";
+        await Notification.create({
+            user: appointment.userId,
+            message: msg,
+            type: 'info'
+        });
+
+        // Broadcast update
+        const io = req.app.get('io');
+        io.emit('appointments:updated', updatedAppt);
+        io.emit(`notification:${appointment.userId}`, { title: 'Checked In', message: msg });
+
+        res.json(updatedAppt);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 // Mark Appointment as Completed (Receptionist)
 router.put('/:id/complete', [auth, require('../middleware/staff')], async (req, res) => {
     try {

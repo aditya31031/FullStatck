@@ -339,6 +339,31 @@ router.delete('/delete-child/:child_id', auth, async (req, res) => {
     }
 });
 
+// Update Child Profile
+router.put('/child/:child_id', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: 'User not found' });
+
+        const child = user.children.id(req.params.child_id);
+        if (!child) return res.status(404).json({ msg: 'Child not found' });
+
+        const { bloodGroup, weight, height } = req.body;
+
+        if (bloodGroup) child.bloodGroup = bloodGroup;
+        if (weight) child.weight = weight;
+        if (height) child.height = height;
+
+        await user.save();
+        await createNotification(user.id, `Child profile updated for ${child.name}.`, 'success');
+
+        res.json(user.children);
+    } catch (err) {
+        console.error('Error updating child:', err.message);
+        res.status(500).json({ msg: 'Server Error: ' + err.message });
+    }
+});
+
 // Update Vaccine Status
 router.put('/child/:child_id/vaccine', auth, async (req, res) => {
     const { vaccineName, status, dateGiven } = req.body;
