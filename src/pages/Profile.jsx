@@ -154,6 +154,7 @@ const Profile = () => {
 
     const addChild = async (e) => {
         e.preventDefault();
+        console.log("Submitting Child Profile (V2 - FormData)..."); // Debug & Cache Bust
         try {
             const token = localStorage.getItem('token');
 

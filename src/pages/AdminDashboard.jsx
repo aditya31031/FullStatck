@@ -21,7 +21,8 @@ const AdminDashboard = () => {
                 fetchAllAppointments();
 
                 // Initialize Socket.io connection
-                const socket = io('https://pediatricsbackend-4hii.onrender.com');
+                // Initialize Socket.io connection
+                const socket = io(import.meta.env.VITE_API_URL || 'https://pediatricsbackend-4hii.onrender.com');
 
                 // Listen for real-time updates
                 socket.on('appointments:updated', (data) => {
