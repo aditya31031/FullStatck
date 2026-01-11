@@ -53,6 +53,50 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
+// Create Appointment (Staff Override - Booking for specific User)
+router.post('/staff-book', [auth, require('../middleware/staff')], async (req, res) => {
+    try {
+        const { patientName, patientAge, date, time, category, userId } = req.body;
+
+        // Check availability
+        const existing = await Appointment.findOne({ date, time, status: { $ne: 'cancelled' } });
+        if (existing) {
+            return res.status(400).json({ msg: 'Slot already booked' });
+        }
+
+        const newAppointment = new Appointment({
+            patientName,
+            patientAge,
+            date,
+            time,
+            category,
+            userId: userId // Use the ID passed by Staff
+        });
+
+        const appointment = await newAppointment.save();
+
+        // Notification to the User being booked for
+        await Notification.create({
+            user: userId,
+            message: `Clinic Staff booked an appointment for you: ${date} at ${time}.`,
+            type: 'success'
+        });
+
+        // Broadcast
+        const io = req.app.get('io');
+        io.emit('appointments:updated', { type: 'create', appointment });
+        io.emit(`notification:${userId}`, {
+            title: 'Booking Confirmed',
+            message: `Clinic Staff booked for ${date} at ${time}.`
+        });
+
+        res.json(appointment);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 // Get Appointments (by date)
 router.get('/', async (req, res) => {
     try {
@@ -80,8 +124,8 @@ router.get('/my-appointments', auth, async (req, res) => {
     }
 });
 
-// Get ALL Appointments (Admin Only)
-router.get('/all', [auth, require('../middleware/admin')], async (req, res) => {
+// Get ALL Appointments (Admin & Receptionist)
+router.get('/all', [auth, require('../middleware/staff')], async (req, res) => {
     try {
         const appointments = await Appointment.find().sort({ date: 1, time: 1 });
         res.json(appointments);
@@ -91,8 +135,8 @@ router.get('/all', [auth, require('../middleware/admin')], async (req, res) => {
     }
 });
 
-// Update Appointment (Reschedule/Modify)
-router.put('/:id', [auth, require('../middleware/admin')], async (req, res) => {
+// Update Appointment (Reschedule/Modify - Staff)
+router.put('/:id', [auth, require('../middleware/staff')], async (req, res) => {
     try {
         const { date, time } = req.body;
         const appointment = await Appointment.findById(req.params.id);

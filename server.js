@@ -48,7 +48,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notifications', require('./routes/notifications').router);
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/reviews', require('./routes/reviews'));
-// Duplicate removed
+app.use('/api/reception', require('./routes/reception')); // Reception Routes
 
 app.get('/', (req, res) => {
     res.send('Pediatrician Clinic API Running - V2 (Multer+ImageKit)');

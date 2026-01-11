@@ -303,7 +303,7 @@ router.post('/add-child', [auth, upload.single('photo')], async (req, res) => {
             }
         }
 
-        const newChild = { name, age, gender, bloodGroup, weight, height, photo: photoUrl };
+        const newChild = { name, lastName, age, gender, bloodGroup, weight, height, photo: photoUrl };
         user.children.push(newChild);
         await user.save();
 
@@ -336,6 +336,34 @@ router.delete('/delete-child/:child_id', auth, async (req, res) => {
     } catch (err) {
         console.error('Error deleting child:', err.message);
         res.status(500).json({ msg: 'Server Error: ' + err.message });
+    }
+});
+
+// Update Vaccine Status
+router.put('/child/:child_id/vaccine', auth, async (req, res) => {
+    const { vaccineName, status, dateGiven } = req.body;
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ msg: 'User not found' });
+
+        const child = user.children.id(req.params.child_id);
+        if (!child) return res.status(404).json({ msg: 'Child not found' });
+
+        // Check if vaccine record exists
+        const existingVaccine = child.vaccinations.find(v => v.name === vaccineName);
+
+        if (existingVaccine) {
+            existingVaccine.status = status;
+            existingVaccine.dateGiven = dateGiven || Date.now();
+        } else {
+            child.vaccinations.push({ name: vaccineName, status, dateGiven });
+        }
+
+        await user.save();
+        res.json(user.children);
+    } catch (err) {
+        console.error('Error updating vaccine:', err.message);
+        res.status(500).send('Server Error');
     }
 });
 
