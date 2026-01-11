@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/public', express.static('public'));
 
 // Make io accessible to routes
 app.set('io', io);

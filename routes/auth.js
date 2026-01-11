@@ -234,8 +234,47 @@ router.put('/reset-password/:resetToken', async (req, res) => {
     }
 });
 
+
+// Multer Configuration
+
+// ImageKit Configuration
+const ImageKit = require('imagekit');
+
+const imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+});
+
+// Multer Configuration (Memory Storage for Cloud Upload)
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.memoryStorage(); // Store file in memory to upload to cloud
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5000000 }, // 5MB limit
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
+    }
+});
+
+function checkFileType(file, cb) {
+    const filetypes = /jpeg|jpg|png|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Images Only!');
+    }
+}
+
 // Add Child
-router.post('/add-child', auth, async (req, res) => {
+router.post('/add-child', [auth, upload.single('photo')], async (req, res) => {
+    // Note: req.body fields are available after multer processes the file
     const { name, age, gender, bloodGroup, weight, height } = req.body;
     try {
         const user = await User.findById(req.user.id);
@@ -248,7 +287,23 @@ router.post('/add-child', auth, async (req, res) => {
             return res.status(400).json({ msg: 'Please enter Name, Age, and Gender' });
         }
 
-        const newChild = { name, age, gender, bloodGroup, weight, height };
+        let photoUrl = '';
+        if (req.file) {
+            try {
+                // Upload to ImageKit
+                const result = await imagekit.upload({
+                    file: req.file.buffer, // Upload buffer
+                    fileName: `${req.user.id}-${Date.now()}-${req.file.originalname}`,
+                    folder: '/children_profiles/'
+                });
+                photoUrl = result.url;
+            } catch (error) {
+                console.error('ImageKit Upload Error:', error);
+                return res.status(500).json({ msg: 'Error uploading image' });
+            }
+        }
+
+        const newChild = { name, age, gender, bloodGroup, weight, height, photo: photoUrl };
         user.children.push(newChild);
         await user.save();
 

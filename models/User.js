@@ -33,7 +33,8 @@ const UserSchema = new mongoose.Schema({
         gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
         bloodGroup: { type: String },
         weight: { type: String },
-        height: { type: String }
+        height: { type: String },
+        photo: { type: String } // Base64 string or URL
     }],
     resetPasswordToken: String,
     resetPasswordExpire: Date
