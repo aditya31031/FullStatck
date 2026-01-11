@@ -36,7 +36,7 @@ router.get('/users/search', [auth, staff], async (req, res) => {
 // @access  Staff
 router.post('/quick-register', [auth, staff], async (req, res) => {
     try {
-        const { parentName, parentPhone, childName, childAge, childGender } = req.body;
+        const { parentName, parentPhone, children } = req.body;
 
         // 1. Check if parent exists by phone
         let user = await User.findOne({ phone: parentPhone });
@@ -59,12 +59,16 @@ router.post('/quick-register', [auth, staff], async (req, res) => {
             });
         }
 
-        // 2. Add Child
-        user.children.push({
-            name: childName,
-            age: childAge,
-            gender: childGender
-        });
+        // 2. Add Children
+        if (Array.isArray(children)) {
+            children.forEach(child => {
+                user.children.push({
+                    name: child.name,
+                    age: child.age,
+                    gender: child.gender
+                });
+            });
+        }
 
         await user.save();
 

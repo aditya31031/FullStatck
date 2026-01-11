@@ -176,6 +176,35 @@ router.put('/:id', [auth, require('../middleware/staff')], async (req, res) => {
     }
 });
 
+// Mark Appointment as Completed (Receptionist)
+router.put('/:id/complete', [auth, require('../middleware/staff')], async (req, res) => {
+    try {
+        const appointment = await Appointment.findById(req.params.id);
+        if (!appointment) return res.status(404).json({ msg: 'Appointment not found' });
+
+        appointment.status = 'completed';
+        const updatedAppt = await appointment.save();
+
+        // Notify User
+        const msg = "Thank you for visiting! We hope you had a pleasant experience. Visit again!";
+        await Notification.create({
+            user: appointment.userId,
+            message: msg,
+            type: 'success'
+        });
+
+        // Broadcast update
+        const io = req.app.get('io');
+        io.emit('appointments:updated', updatedAppt);
+        io.emit(`notification:${appointment.userId}`, { title: 'Visit Completed', message: msg });
+
+        res.json(updatedAppt);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 // Cancel Appointment
 router.delete('/:id', auth, async (req, res) => {
     try {
