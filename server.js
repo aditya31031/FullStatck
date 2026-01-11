@@ -51,7 +51,7 @@ app.use('/api/reviews', require('./routes/reviews'));
 // Duplicate removed
 
 app.get('/', (req, res) => {
-    res.send('Pediatrician Clinic API Running');
+    res.send('Pediatrician Clinic API Running - V2 (Multer+ImageKit)');
 });
 
 server.listen(PORT, () => {
