@@ -475,72 +475,73 @@ const ReceptionistDashboard = () => {
                                     </button>
                                 </h4>
 
-                                <div key={index} className="child-form-card" style={{ background: '#f8fafc', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem', border: '1px solid #e2e8f0' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
-                                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#475569' }}>Child {index + 1}</span>
-                                        {regData.children.length > 1 && (
-                                            <button
-                                                type="button"
-                                                className="btn-icon-danger"
-                                                onClick={() => handleRemoveChild(index)}
-                                                title="Remove Child"
-                                                style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#ef4444' }}
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        )}
-                                    </div>
+                                {regData.children.map((child, index) => (
+                                    <div key={index} className="child-form-card" style={{ background: '#f8fafc', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem', border: '1px solid #e2e8f0' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
+                                            <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#475569' }}>Child {index + 1}</span>
+                                            {regData.children.length > 1 && (
+                                                <button
+                                                    type="button"
+                                                    className="btn-icon-danger"
+                                                    onClick={() => handleRemoveChild(index)}
+                                                    title="Remove Child"
+                                                    style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#ef4444' }}
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            )}
+                                        </div>
 
-                                    <div className="grid-2-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                        <div className="form-group-modern" style={{ gridColumn: '1 / -1' }}>
-                                            <label>Child Name</label>
-                                            <input
-                                                type="text" className="modern-input" required
-                                                value={child.name}
-                                                onChange={e => handleChildChange(index, 'name', e.target.value)}
-                                                placeholder="Child's Full Name"
-                                            />
-                                        </div>
-                                        <div className="form-group-modern">
-                                            <label>Age</label>
-                                            <input
-                                                type="number" className="modern-input" required
-                                                value={child.age}
-                                                onChange={e => handleChildChange(index, 'age', e.target.value)}
-                                                placeholder="Age"
-                                            />
-                                        </div>
-                                        <div className="form-group-modern">
-                                            <label>Gender</label>
-                                            <select
-                                                className="modern-input"
-                                                value={child.gender}
-                                                onChange={e => handleChildChange(index, 'gender', e.target.value)}
-                                            >
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                            </select>
-                                        </div>
-                                        <div className="form-group-modern">
-                                            <label>Blood Group</label>
-                                            <select
-                                                className="modern-input"
-                                                value={child.bloodGroup}
-                                                onChange={e => handleChildChange(index, 'bloodGroup', e.target.value)}
-                                            >
-                                                <option value="">Select Blood Group </option>
-                                                <option value="A+">A+</option>
-                                                <option value="A-">A-</option>
-                                                <option value="B+">B+</option>
-                                                <option value="B-">B-</option>
-                                                <option value="O+">O+</option>
-                                                <option value="O-">O-</option>
-                                                <option value="AB+">AB+</option>
-                                                <option value="AB-">AB-</option>
-                                            </select>
+                                        <div className="grid-2-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                            <div className="form-group-modern" style={{ gridColumn: '1 / -1' }}>
+                                                <label>Child Name</label>
+                                                <input
+                                                    type="text" className="modern-input" required
+                                                    value={child.name}
+                                                    onChange={e => handleChildChange(index, 'name', e.target.value)}
+                                                    placeholder="Child's Full Name"
+                                                />
+                                            </div>
+                                            <div className="form-group-modern">
+                                                <label>Age</label>
+                                                <input
+                                                    type="number" className="modern-input" required
+                                                    value={child.age}
+                                                    onChange={e => handleChildChange(index, 'age', e.target.value)}
+                                                    placeholder="Age"
+                                                />
+                                            </div>
+                                            <div className="form-group-modern">
+                                                <label>Gender</label>
+                                                <select
+                                                    className="modern-input"
+                                                    value={child.gender}
+                                                    onChange={e => handleChildChange(index, 'gender', e.target.value)}
+                                                >
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group-modern">
+                                                <label>Blood Group</label>
+                                                <select
+                                                    className="modern-input"
+                                                    value={child.bloodGroup}
+                                                    onChange={e => handleChildChange(index, 'bloodGroup', e.target.value)}
+                                                >
+                                                    <option value="">Select Blood Group </option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 ))}
                             </div>
 
