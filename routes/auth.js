@@ -12,8 +12,13 @@ const Otp = require('../models/Otp');
 
 // Register
 router.post('/register', async (req, res) => {
-    const { name, email, password, phone, otp } = req.body;
+    let { name, email, password, phone, otp } = req.body;
     try {
+        // Basic formatting: Default to +91 (India) if no country code provided
+        if (phone && !phone.startsWith('+')) {
+            phone = '+91' + phone.trim();
+        }
+
         // Verify OTP
         if (process.env.NODE_ENV !== 'test') { // Skip for tests if needed, or better, mock it
             const otpRecord = await Otp.findOne({ phone, otp });
