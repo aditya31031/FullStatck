@@ -10,7 +10,7 @@ const { createNotification } = require('./notifications');
 const axios = require('axios');
 const Otp = require('../models/Otp');
 
-// Register
+// Register (Last updated: FORCE_DEPLOY_CHECK)
 router.post('/register', async (req, res) => {
     let { name, email, password, phone, otp } = req.body;
     try {
