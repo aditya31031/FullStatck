@@ -6,7 +6,7 @@ const DEVICE_ID = '6964835e9f385ce7310f492a';
 
 // REPLACE THIS WITH YOUR REAL PHONE NUMBER INCLUDING COUNTRY CODE
 // Example: '+919876543210' for India
-const TEST_PHONE_NUMBER = '+919999999999';
+const TEST_PHONE_NUMBER = '+919066910183';
 
 const sendTestSms = async () => {
     console.log('Attempting to send SMS...');
