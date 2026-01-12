@@ -17,6 +17,7 @@ router.post('/register', async (req, res) => {
     console.log('------------------------------------------------');
     console.log('REGISTER ATTEMPT:', { name, email, phone_raw: phone, otp }); // Log raw input
 
+
     try {
         // Normalize Phone
         if (phone) {
