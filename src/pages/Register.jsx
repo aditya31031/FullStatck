@@ -138,7 +138,7 @@ const Register = () => {
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                             required
-                                            placeholder="98765 43210"
+                                            placeholder="08043704949"
                                         />
                                     </div>
                                 </div>

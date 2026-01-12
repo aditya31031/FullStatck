@@ -2,9 +2,9 @@
 .health-card-wrapper-dl {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
-    width: 100%;
+    width: 50%;
 }
 
 .btn-download-card {
@@ -32,7 +32,7 @@
     perspective: 1000px;
     margin: 0.5rem 0;
     width: 100%;
-    max-width: 420px;
+    max-width: 90%;
     /* Standard ID card ratioish */
     transition: transform 0.3s ease;
 }
@@ -312,13 +312,14 @@
     color: #e2e8f0;
 }
 
+
+
 .qr-section {
     background: white;
     padding: 4px;
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    width: 50px;
 }
 
 .signature-block {
@@ -363,6 +364,6 @@
     }
 
     .detail-group.primary h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }

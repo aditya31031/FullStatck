@@ -11,10 +11,12 @@ import './Dashboard.css';
 
 const Dashboard = () => {
     const { user, loading, updateUser } = useAuth();
+    const navigate = useNavigate();
     const [appointments, setAppointments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedChildIndex, setSelectedChildIndex] = useState(0);
-    const navigate = useNavigate();
+    const [viewAllAppointments, setViewAllAppointments] = useState(false);
+    const [queueStats, setQueueStats] = useState(null);
 
     // Reminder State
     const [remindedApps, setRemindedApps] = useState(new Set());
@@ -165,7 +167,11 @@ const Dashboard = () => {
         return { myToken, peopleAhead, estWaitTime, currentToken };
     };
 
-    const queueStats = getQueueStats();
+    // Update queue stats whenever appointments change
+    useEffect(() => {
+        const stats = getQueueStats();
+        setQueueStats(stats);
+    }, [appointments, selectedChildIndex]);
 
     const formatTime = (time24) => {
         if (!time24) return '';
@@ -340,28 +346,29 @@ const Dashboard = () => {
                             parentPhone={user.phone}
                             onUpdateChild={handleUpdateChild}
                         />
+                        <div className="stats-grid mt-4">
+                            <div className="stat-card">
+                                <div className="stat-icon bg-green">
+                                    <Weight size={20} />
+                                </div>
+                                <div className="stat-info">
+                                    <span className="stat-label">Weight</span>
+                                    <span className="stat-value">{selectedChild.weight ? `${selectedChild.weight} kg` : '--'}</span>
+                                </div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon bg-purple">
+                                    <Ruler size={20} />
+                                </div>
+                                <div className="stat-info">
+                                    <span className="stat-label">Height</span>
+                                    <span className="stat-value">{selectedChild.height ? `${selectedChild.height} cm` : '--'}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="stats-grid mt-4">
-                        <div className="stat-card">
-                            <div className="stat-icon bg-green">
-                                <Weight size={20} />
-                            </div>
-                            <div className="stat-info">
-                                <span className="stat-label">Weight</span>
-                                <span className="stat-value">{selectedChild.weight ? `${selectedChild.weight} kg` : '--'}</span>
-                            </div>
-                        </div>
-                        <div className="stat-card">
-                            <div className="stat-icon bg-purple">
-                                <Ruler size={20} />
-                            </div>
-                            <div className="stat-info">
-                                <span className="stat-label">Height</span>
-                                <span className="stat-value">{selectedChild.height ? `${selectedChild.height} cm` : '--'}</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             ) : (
                 <div className="empty-state-card">
@@ -386,7 +393,19 @@ const Dashboard = () => {
 
             {/* UPCOMING APPOINTMENTS */}
             <div className="appointments-section">
-                <h3><Calendar size={20} /> Upcoming Appointments</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '1rem' }}>
+                    <h3><Calendar size={20} /> Upcoming Appointments</h3>
+                    {appointments.filter(a => a.status !== 'completed' && a.status !== 'cancelled' && new Date(a.date) >= new Date().setHours(0, 0, 0, 0)).length > 3 && (
+                        <button
+                            className="btn btn-sm btn-outline-primary"
+                            onClick={() => setViewAllAppointments(!viewAllAppointments)}
+                            style={{ borderRadius: '2rem', padding: '0.4rem 1rem', fontSize: '0.8rem' }}
+                        >
+                            {viewAllAppointments ? 'Back to Dashboard' : 'View More'}
+                        </button>
+                    )}
+                </div>
+
                 {appointments.filter(a => a.status !== 'completed' && a.status !== 'cancelled' && new Date(a.date) >= new Date().setHours(0, 0, 0, 0)).length === 0 ? (
                     <div className="empty-dashboard">
                         <p>No upcoming appointments.</p>
@@ -395,7 +414,7 @@ const Dashboard = () => {
                         </button>
                     </div>
                 ) : (
-                    <div className="cards-grid">
+                    <div className={viewAllAppointments ? "cards-grid" : "appointments-scroll-row"}>
                         {appointments
                             .filter(a => a.status !== 'completed' && a.status !== 'cancelled' && new Date(a.date) >= new Date().setHours(0, 0, 0, 0))
                             .map(app => (

@@ -15,6 +15,7 @@ const HealthCard = ({ child, parentName, parentPhone, onUpdateChild, onDownload 
     const issueDate = new Date(child.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
     const validThru = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
+
     const handleStartEdit = () => {
         setBgValue(child.bloodGroup || '');
         setIsEditing(true);
@@ -49,11 +50,7 @@ const HealthCard = ({ child, parentName, parentPhone, onUpdateChild, onDownload 
 
     return (
         <div className="health-card-wrapper-dl">
-            <div className="health-card-actions">
-                <button onClick={handleDownload} className="btn-download-card">
-                    <Download size={16} /> Download Official ID
-                </button>
-            </div>
+
 
             <div className="health-card-container" ref={cardRef}>
                 <div className="health-card-professional">
@@ -152,6 +149,7 @@ const HealthCard = ({ child, parentName, parentPhone, onUpdateChild, onDownload 
                                     <label>Valid Thru</label> <span>{validThru}</span>
                                 </div>
                             </div>
+
                         </div>
 
                         <div className="footer-col right">

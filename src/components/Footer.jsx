@@ -12,7 +12,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-section">
                     <h4>Contact & Location</h4>
-                    <p><Phone size={16} /> +91 98765 43210</p>
+                    <p><Phone size={16} /> +91 08043704949</p>
                     <p><MapPin size={16} /> Sahakaranagar, Bangalore</p>
                 </div>
                 <div className="footer-section">
