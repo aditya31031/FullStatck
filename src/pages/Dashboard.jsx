@@ -270,29 +270,29 @@ const Dashboard = () => {
                 </div>
 
                 {queueStats && (
-                    <div className="queue-card fade-in-up" style={{ marginBottom: '1.5rem', background: 'linear-gradient(135deg, #4f46e5 0%, #3730a3 100%)', color: 'white', padding: '1.5rem', borderRadius: '1.5rem', boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.4)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div className="queue-status-card fade-in-up">
+                        <div className="queue-card-header">
                             <div>
-                                <h3 style={{ margin: 0, fontSize: '1.1rem', color: 'rgba(255,255,255,0.9)' }}>Live Queue Status</h3>
-                                <p style={{ margin: '0.25rem 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>Updates in real-time</p>
+                                <h3>Live Queue Status</h3>
+                                <p>Updates in real-time</p>
                             </div>
-                            <div style={{ background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.85rem', fontWeight: '600' }}>
+                            <div className="user-token-badge">
                                 Your Token: #{queueStats.myToken}
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem' }}>
-                            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '1rem', textAlign: 'center' }}>
-                                <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>#{queueStats.currentToken}</div>
-                                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)' }}>Current Token</div>
+                        <div className="queue-stats-grid">
+                            <div className="q-stat-box">
+                                <div className="q-value">#{queueStats.currentToken}</div>
+                                <div className="q-label">Current Token</div>
                             </div>
-                            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '1rem', textAlign: 'center' }}>
-                                <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>{queueStats.peopleAhead}</div>
-                                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)' }}>People Ahead</div>
+                            <div className="q-stat-box">
+                                <div className="q-value">{queueStats.peopleAhead}</div>
+                                <div className="q-label">People Ahead</div>
                             </div>
-                            <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '1rem', textAlign: 'center' }}>
-                                <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>{queueStats.estWaitTime}<span style={{ fontSize: '1rem' }}>m</span></div>
-                                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)' }}>Est. Wait Time</div>
+                            <div className="q-stat-box highlight">
+                                <div className="q-value">{queueStats.estWaitTime}<span>m</span></div>
+                                <div className="q-label">Est. Wait Time</div>
                             </div>
                         </div>
                     </div>
