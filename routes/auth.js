@@ -82,6 +82,8 @@ router.post('/register', async (req, res) => {
         });
     } catch (err) {
         console.error('REGISTER ERROR:', err.message);
+        console.error('REGISTER ERROR:', err.response?.data);
+        console.error('REGISTER ERROR:', err);
         res.status(500).send('Server error');
     }
 });
