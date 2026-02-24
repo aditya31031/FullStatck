@@ -45,7 +45,8 @@ function Ecom() {
   return (
     <>
       {chkTok ? (
-        <BackButton />
+        // <BackButton />
+        <p></p>
       ) : (
         <></>
 
