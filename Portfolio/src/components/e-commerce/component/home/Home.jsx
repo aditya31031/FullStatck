@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
-   FaHeart, FaShoppingBag,  FaTruck, FaHeadset, FaShieldAlt, FaUndo, FaArrowRight, FaFacebookF,
+  FaHeart, FaShoppingBag, FaTruck, FaHeadset, FaShieldAlt, FaUndo, FaArrowRight, FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaPinterestP,
@@ -681,10 +681,7 @@ const Home = ({ setViewMoreDetails }) => {
                   Shop<span className="text-blue-400">Lux</span>
                 </span>
               </div>
-              <p className="text-gray-400 mb-4">
-                Your one-stop destination for premium products at affordable
-                prices.
-              </p>
+
               <div className="flex space-x-4">
                 <p
                   href="#"
@@ -714,112 +711,12 @@ const Home = ({ setViewMoreDetails }) => {
             </div>
 
             {/* Quick Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Home
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Shop
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    About Us
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Contact
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Blog
-                  </p>
-                </li>
-              </ul>
-            </div>
+
 
             {/* Customer Service */}
-            <div>
-              <h4 className="text-white font-semibold mb-4">Customer Service</h4>
-              <ul className="space-y-2">
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    FAQ
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Shipping Info
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Returns
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Track Order
-                  </p>
-                </li>
-                <li>
-                  <p href="#" className="text-gray-400 hover:text-white transition">
-                    Size Guide
-                  </p>
-                </li>
-              </ul>
-            </div>
 
-            {/* Contact Info */}
-            <div>
-              <h4 className="text-white font-semibold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li className="flex items-center">
-                  <FaMapMarkerAlt className="mr-2" />
-                  Bangalore,India
-                </li>
-                <li className="flex items-center">
-                  <FaPhoneAlt className="mr-2" />
-                  +91 9066910183
-                </li>
-                <li className="flex items-center">
-                  <FaEnvelope className="mr-2" />
-                  aditya@gmail.com
-                </li>
-              </ul>
-            </div>
           </div>
 
-          {/* Bottom bar */}
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              © 2024 ShopLux. All rights reserved.
-            </p>
-            <div className="flex items-center space-x-4">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/100px-Visa_Inc._logo.svg.png"
-                alt="Visa"
-                className="h-6 brightness-0 invert opacity-60"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/100px-Mastercard-logo.svg.png"
-                alt="Mastercard"
-                className="h-8 opacity-60"
-              />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/100px-PayPal.svg.png"
-                alt="PayPal"
-                className="h-5 brightness-0 invert opacity-60"
-              />
-            </div>
-          </div>
         </div>
       </footer>
     </>
