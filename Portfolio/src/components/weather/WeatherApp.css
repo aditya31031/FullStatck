@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
+@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
+
+.weather-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 1s ease-in-out;
+  overflow: hidden;
+  color: white;
+  font-family: "Outfit", sans-serif;
+}
+
+/* Gradients for weather types */
+.sunny {
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  color: #333; /* dark text for bright background */
+}
+.cloudy {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color:  brown !important; /* white text for medium background */
+}
+.rainy {
+  background: linear-gradient(135deg, #314755, #26a0da);
+  color: #fff; /* white text for dark blue */
+}
+.snowy {
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  color: #333; /* dark text for light blue */
+}
+.storm {
+  background: linear-gradient(135deg, #232526, #414345);
+  color: #fff; /* white text for dark background */
+}
+
+
+/* Floating blurred glow */
+.weather-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent);
+  top: 10%;
+  left: -150px;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Glass card */
+.weather-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  padding: 40px 30px;
+  text-align: center;
+  width: 380px;
+  z-index: 2;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+
+.weather-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.weather-search {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.weather-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  outline: none;
+}
+.weather-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.weather-btn {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.weather-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.weather-info {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.weather-lottie {
+  height: 150px;
+  margin: 0 auto;
+}
+
+.weather-location {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.weather-temp {
+  font-size: 56px;
+  margin: 10px 0;
+}
+
+.weather-desc {
+  text-transform: capitalize;
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.weather-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.weather-stats div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+.weather-stats i {
+  font-size: 18px;
+}
+
+.weather-error {
+  color: #ffbbbb;
+  font-size: 14px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-25px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

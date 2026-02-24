@@ -1,0 +1,186 @@
+/* Container and layout */
+.todo-list-container {
+  max-width: 460px;
+  margin: 48px auto;
+  background: linear-gradient(135deg, #13131c, #1e1c3a);
+  border-radius: 24px;
+  box-shadow: 0 0 38px #40c7faaa, inset 0 0 10px #37306bbb;
+  color: #b4c9d7;
+  font-family: 'Orbitron', 'Roboto', sans-serif;
+  padding: 28px 40px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+h1 {
+  margin-bottom: 22px;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #40c7fa;
+  letter-spacing: 3px;
+  text-align: center;
+  text-shadow: 0 3px 16px #22244bcc;
+}
+
+/* Add Task Form */
+.todo-add-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.todo-input {
+  flex-grow: 1;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  border-radius: 14px 0 0 14px;
+  border: none;
+  outline: none;
+  background: #1f2a44;
+  color: #b4c9d7;
+  box-shadow: inset 1px 1px 3px #305070;
+  transition: background 0.3s ease;
+}
+
+.todo-input::placeholder {
+  color: #6789ab;
+}
+
+.todo-input:focus {
+  background: #2a3a6b;
+  box-shadow: 0 0 14px #40c7facc;
+}
+
+.todo-btn {
+  padding: 0 24px;
+  background: #40c7fa;
+  border: none;
+  border-radius: 0 14px 14px 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 700;
+  color: #13131c;
+  font-size: 1.1rem;
+  box-shadow: 0 0 14px #40c7faaa;
+}
+
+.todo-btn:hover {
+  background: #1aa1f3;
+}
+
+/* Task List */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  background: #22233f;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: inset 0 0 8px #15223a;
+  transition: background 0.3s ease;
+  font-size: 1.05rem;
+}
+
+.todo-item.completed {
+  text-decoration: line-through;
+  color: #8495b4;
+  opacity: 0.7;
+}
+
+.todo-item:hover {
+  background: #2a3764;
+}
+
+/* Checkbox */
+.todo-checkbox {
+  font-size: 1.4rem;
+  padding-right: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.todo-checkbox:hover {
+  color: #40c7fa;
+}
+
+/* Task Text */
+.todo-text {
+  flex-grow: 1;
+  user-select: text;
+}
+
+/* Priority display */
+.todo-priority {
+  color: #80b6ff;
+  margin-right: 14px;
+  user-select: none;
+  font-weight: 700;
+  font-family: 'Orbitron', monospace;
+}
+
+/* Buttons */
+.priority-btn,
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #5f8dbf;
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-left: 12px;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+.priority-btn:hover,
+.delete-btn:hover {
+  color: #40c7fa;
+}
+
+.priority-btn.up {
+  transform: rotate(0deg);
+}
+
+.priority-btn.down {
+  transform: rotate(180deg);
+}
+
+/* Sort options */
+.sort-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 8px;
+  color: #6789ab;
+  font-size: 0.95rem;
+  user-select: none;
+}
+
+.sort-options span {
+  font-weight: 600;
+}
+
+.sort-options button {
+  background: transparent;
+  border: 1.8px solid #2e3c6a;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 5px 16px;
+  color: #657b9a;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.sort-options button.active,
+.sort-options button:hover {
+  border-color: #40c7fa;
+  color: #40c7fa;
+  box-shadow: 0 0 10px #40c7faaa;
+}
