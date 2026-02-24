@@ -26,6 +26,8 @@ const Home = ({ setViewMoreDetails }) => {
   const itemsPerPage = 4;
   const [totalCartCount, setTotalCartCount] = useState(0);
   const navigate = useNavigate();
+  const [addStatus, setAddStatus] = useState({});
+
 
   const baseUrl = "https://ecommercebackend-1-fwcd.onrender.com";
 
@@ -55,6 +57,45 @@ const Home = ({ setViewMoreDetails }) => {
         });
     }
   }, []);
+  async function handleAddCart(product) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+
+      navigate("/ecommerce/ecommerce/login");
+      return;
+    }
+
+    const cartGetItem = {
+      product_id: product.id,
+      quantity: 1,
+    };
+
+    try {
+      setAddStatus((prev) => ({ ...prev, [product.id]: "loading" }));
+
+      await axios.post(
+        "https://ecommercebackend-1-fwcd.onrender.com/api/cart/add",
+        cartGetItem,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      setAddStatus((prev) => ({ ...prev, [product.id]: "success" }));
+
+      // Redirect to cart
+      setTimeout(() => {
+        navigate("/ecommerce/home/cart");
+      }, 600);
+
+    } catch (error) {
+      console.error("Error adding to cart:", error.response?.data || error.message);
+      setAddStatus((prev) => ({ ...prev, [product.id]: "idle" }));
+    }
+  }
   const handleCategoryClick = async (id) => {
     try {
       const res = await axios.get(
@@ -118,6 +159,7 @@ const Home = ({ setViewMoreDetails }) => {
       (product) => product.id === itemId
     );
     if (selectedItem) {
+      setViewMoreDetails(selectedItem);
       navigate("/ecommerce/home/viewmore", { state: selectedItem });
 
     }
@@ -556,13 +598,41 @@ const Home = ({ setViewMoreDetails }) => {
                         </p>
                       )}
                     </div>
+                    <FaShoppingBag className="mr-1 text-[10px]" />
+
 
                     <button
                       type="button"
-                      className="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[11px] font-semibold text-gray-800 hover:bg-gray-100 transition"
+                      onClick={() => handleAddCart(item)}
+                      disabled={addStatus[item.id] === "loading"}
+                      className={`inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[11px] font-semibold text-gray-800 hover:bg-gray-100 transition" ${addStatus[item.id] === "success"
+                        ? "bg-green-600 text-white"
+                        : "bg-gray-900 text-white hover:bg-gray-800"
+                        }`}
                     >
-                      <FaShoppingBag className="mr-1 text-[10px]" />
-                      Add to Cart
+
+                      {addStatus[item.id] === "loading" && "Adding..."}
+
+                      {(addStatus[item.id] === "idle" || !addStatus[item.id]) && "Add to Cart"}
+
+                      {addStatus[item.id] === "success" && (
+                        <>
+                          <svg
+                            className="w-5 h-5 mr-2"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          Added to Cart!
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
