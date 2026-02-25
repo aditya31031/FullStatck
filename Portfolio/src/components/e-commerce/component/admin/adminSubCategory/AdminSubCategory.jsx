@@ -18,25 +18,25 @@ const AdminSubCategory = () => {
   const [catGetName, setCatGetName] = useState();
   const [editCategoryId, setEditCategoryId] = useState("");
   const fetchSubCategories = useCallback(async () => {
-  try {
-    const response = await axios.get(
-      "https://ecommercebackend-1-fwcd.onrender.com/api/subcategories"
-    );
-    const responseCat = await axios.get(
-      "https://ecommercebackend-1-fwcd.onrender.com/api/category",
-      {
-        headers: { Authorization: token },
-      }
-    );
-    setGetCategoryDetails(responseCat.data);
-    setSubGetCategoryDetails(response.data);
-  } catch (error) {
-    console.log("Fetch category error", error);
-  }
-}, [token]); // Include dependencies here
-useEffect(() => {
-  fetchSubCategories();
-}, [fetchSubCategories]);
+    try {
+      const response = await axios.get(
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories"
+      );
+      const responseCat = await axios.get(
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/category",
+        {
+          headers: { Authorization: token },
+        }
+      );
+      setGetCategoryDetails(responseCat.data);
+      setSubGetCategoryDetails(response.data);
+    } catch (error) {
+      console.log("Fetch category error", error);
+    }
+  }, [token]); // Include dependencies here
+  useEffect(() => {
+    fetchSubCategories();
+  }, [fetchSubCategories]);
 
   //add subcat
   const handleSubCatDetails = async (e) => {
@@ -48,7 +48,7 @@ useEffect(() => {
 
     try {
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/add",
         formData,
         {
           headers: {
@@ -81,7 +81,7 @@ useEffect(() => {
     const subCatIdNum = parseInt(subCatId);
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/${subCatIdNum}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/${subCatIdNum}`,
         formData,
         {
           headers: {
@@ -116,7 +116,7 @@ useEffect(() => {
     const catDelIdNum = parseInt(subCatDelId);
     try {
       await axios.delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/${catDelIdNum}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/${catDelIdNum}`,
         {
           headers: {
             Authorization: token,
@@ -238,7 +238,7 @@ useEffect(() => {
           <div>{item.subcategory_name}</div>
           <div className="imgcenter">
             <img
-              src={`https://ecommercebackend-1-fwcd.onrender.com/${item.image_url}`}
+              src={`https://site--portfolio-api--kwybpvsjlw26.code.run/${item.image_url}`}
               alt="loading"
               className={adminSubCatCss.rowImage}
             />

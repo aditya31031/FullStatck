@@ -29,7 +29,7 @@ const Home = ({ setViewMoreDetails }) => {
   const [addStatus, setAddStatus] = useState({});
 
 
-  const baseUrl = "https://ecommercebackend-1-fwcd.onrender.com";
+  const baseUrl = "https://site--portfolio-api--kwybpvsjlw26.code.run";
 
   useEffect(() => {
     axios.get(`${baseUrl}/api/products/`).then((res) => {
@@ -45,7 +45,7 @@ const Home = ({ setViewMoreDetails }) => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("https://ecommercebackend-1-fwcd.onrender.com/api/cart", {
+        .get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart", {
           headers: { Authorization: token },
         })
         .then((res) => {
@@ -74,7 +74,7 @@ const Home = ({ setViewMoreDetails }) => {
       setAddStatus((prev) => ({ ...prev, [product.id]: "loading" }));
 
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/cart/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart/add",
         cartGetItem,
         {
           headers: {

@@ -5,12 +5,12 @@ import {
   FaExclamationCircle,
   FaPrint,
   FaTruck,
-  
+
   FaBox,
   FaHome,
   FaShoppingBag,
   FaHistory,
-  
+
 } from "react-icons/fa";
 import NavBars from "../NavBars";
 
@@ -27,7 +27,7 @@ const OrderConfirmation = () => {
     try {
       const orderIdInt = parseInt(orderId, 10);
       const response = await axios.get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/order-confirmation/${orderIdInt}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/order-confirmation/${orderIdInt}`,
         {
           headers: {
             Authorization: token,
@@ -93,11 +93,11 @@ const OrderConfirmation = () => {
     order?.subtotal ?? order?.sub_total ?? (totalAmount ? totalAmount : null);
   const shipping =
     order?.shipping_fee ?? order?.shipping ?? order?.shipping_amount ?? 0;
- 
+
   const customerEmail =
     order?.email || order?.user_email || order?.customer_email || null;
 
- 
+
 
 
 
@@ -210,8 +210,8 @@ const OrderConfirmation = () => {
       `}</style>
 
       {/* headder */}
-    
-  <NavBars />
+
+      <NavBars />
       {/* Main Content */}
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Success Message */}
@@ -435,7 +435,7 @@ const OrderConfirmation = () => {
         </div>
       </main>
 
-  
+
     </div>
   );
 };

@@ -25,7 +25,7 @@ const Cart = () => {
 
     try {
       const response = await axios.get(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/cart",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart",
         {
           headers: {
             Authorization: token,
@@ -51,7 +51,7 @@ const Cart = () => {
 
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/cart/update/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart/update/${productId}`,
         { quantity: newQuantity },
         {
           headers: {
@@ -68,7 +68,7 @@ const Cart = () => {
   const handleRemove = async (productId) => {
     try {
       await axios.delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/cart/remove/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart/remove/${productId}`,
         {
           headers: {
             Authorization: token,
@@ -98,7 +98,7 @@ const Cart = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-   <NavBar/>
+      <NavBar />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -150,7 +150,7 @@ const Cart = () => {
                           </span>
                         </p>
                         <div className="flex items-center space-x-2 mt-3">
-                         
+
                           <button
                             className="text-gray-400 hover:text-red-500 transition-colors duration-200"
                             onClick={() => handleRemove(item.id)}
@@ -178,9 +178,9 @@ const Cart = () => {
                           type="text"
                           readOnly
                           value={item.quantity}
-                           className="w-12 text-center border border-gray-300 rounded-md py-1 text-sm text-gray-800 bg-gray-50 focus:ring-2 focus:ring-indigo-500"
+                          className="w-12 text-center border border-gray-300 rounded-md py-1 text-sm text-gray-800 bg-gray-50 focus:ring-2 focus:ring-indigo-500"
 
-                         />
+                        />
                         <button
                           className="h-8 w-8 flex items-center justify-center border border-gray-200 rounded-md hover:bg-gray-50 transition-colors duration-200"
                           onClick={() =>

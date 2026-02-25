@@ -19,7 +19,7 @@ const AdminCategory = () => {
   const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/category",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/category",
         {
           headers: { Authorization: token },
         }
@@ -42,7 +42,7 @@ const AdminCategory = () => {
     formData.append("image", adminCatImg);
     try {
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/category/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/category/add",
         formData,
         {
           headers: {
@@ -68,7 +68,7 @@ const AdminCategory = () => {
     }
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/category/${parseInt(catId)}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/category/${parseInt(catId)}`,
         formData,
         {
           headers: {
@@ -88,7 +88,7 @@ const AdminCategory = () => {
     const catDelIdNum = parseInt(catDelId);
     try {
       await axios.delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/category/${catDelIdNum}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/category/${catDelIdNum}`,
         {
           headers: {
             Authorization: token,
@@ -200,7 +200,7 @@ const AdminCategory = () => {
       {/* Category Rows */}
       {categoryDetails.map((item, index) => (
         <div className={adminCatCss.glassRow} key={index}>
-     
+
           <div>{item.id}</div>
           <div>{item.name}</div>
           <div>

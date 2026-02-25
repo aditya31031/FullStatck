@@ -81,7 +81,7 @@ const OrderHistory = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          "https://ecommercebackend-1-fwcd.onrender.com/api/order-history",
+          "https://site--portfolio-api--kwybpvsjlw26.code.run/api/order-history",
           {
             headers: { Authorization: token },
           }
@@ -291,7 +291,7 @@ const OrderHistory = () => {
       `}</style>
 
       {/* Top nav */}
-     <NavBars/>
+      <NavBars />
 
       {/* Main */}
       <main className="flex-1">

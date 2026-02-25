@@ -53,7 +53,7 @@ const PlaceOrder = () => {
     const fetchAddresses = async () => {
       try {
         const response = await axios.get(
-          "https://ecommercebackend-1-fwcd.onrender.com/api/address",
+          "https://site--portfolio-api--kwybpvsjlw26.code.run/api/address",
           {
             headers: { Authorization: token },
           }
@@ -78,7 +78,7 @@ const PlaceOrder = () => {
   const addAddresses = async () => {
     try {
       const response = await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/address/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/address/add",
         newAddress,
         { headers: { Authorization: token } }
       );
@@ -107,7 +107,7 @@ const PlaceOrder = () => {
   const handleDeleteAddress = async (id) => {
     try {
       await axios.delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/address/${id}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/address/${id}`,
         {
           headers: { Authorization: token },
         }
@@ -121,7 +121,7 @@ const PlaceOrder = () => {
   const handleClearCart = async () => {
     try {
       await axios.delete(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/cart/clear",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart/clear",
         {
           headers: { Authorization: token },
         }
@@ -141,7 +141,7 @@ const PlaceOrder = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/address/${editId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/address/${editId}`,
         editForm,
         {
           headers: { Authorization: token },
@@ -150,7 +150,7 @@ const PlaceOrder = () => {
       setEditId(null);
       setEditForm({});
       const res = await axios.get(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/address",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/address",
         {
           headers: { Authorization: token },
         }
@@ -179,7 +179,7 @@ const PlaceOrder = () => {
 
     try {
       const response = await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/order/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/order/add",
         orderPayload,
         { headers: { Authorization: token } }
       );
@@ -217,7 +217,7 @@ const PlaceOrder = () => {
   return (
     <div className="bg-gray-50 min-h-screen text-gray-900">
       {/* Header */}
-    <NavBars/>
+      <NavBars />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -238,8 +238,8 @@ const PlaceOrder = () => {
                     <div
                       key={addr.id}
                       className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedAddressId === addr.id
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-blue-500"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 hover:border-blue-500"
                         }`}
                       onClick={() => setSelectedAddressId(addr.id)}
                     >

@@ -20,10 +20,10 @@ const AdminSubSubSubCategory = () => {
   const fetchAll = useCallback(async () => {
     try {
       const [sssRes, ssRes, sRes, cRes] = await Promise.all([
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/subsubsubcategory"),
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory"),
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/subcategories"),
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/category", {
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubsubcategory"),
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory"),
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories"),
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/category", {
           headers: { Authorization: token },
         }),
       ]);
@@ -41,7 +41,7 @@ const AdminSubSubSubCategory = () => {
     async (catId) => {
       try {
         const res = await axios.get(
-          `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/category/${catId}`,
+          `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/category/${catId}`,
           { headers: { Authorization: token } }
         );
         setSubCategories(res.data);
@@ -56,7 +56,7 @@ const AdminSubSubSubCategory = () => {
     async (subCatId) => {
       try {
         const res = await axios.get(
-          `https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory/subcategory/${subCatId}`,
+          `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory/subcategory/${subCatId}`,
           { headers: { Authorization: token } }
         );
         setSubSubCategories(res.data);
@@ -77,7 +77,7 @@ const AdminSubSubSubCategory = () => {
 
     try {
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/subsubsubcategory",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubsubcategory",
         {
           subsubcategoryId: subSubCategoryId,
           name: subSubSubCategoryName.trim(),

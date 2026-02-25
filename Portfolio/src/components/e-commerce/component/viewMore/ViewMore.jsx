@@ -18,7 +18,7 @@ const ViewMore = () => {
 
   async function handleAddCart(product) {
     if (!token) {
-      
+
       navigate("/ecommerce/ecommerce/login");
       return;
     }
@@ -32,7 +32,7 @@ const ViewMore = () => {
       setAddStatus("loading");
 
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/cart/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart/add",
         cartGetItem,
         {
           headers: {
@@ -65,7 +65,7 @@ const ViewMore = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-     <NavBar/>
+      <NavBar />
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -86,11 +86,10 @@ const ViewMore = () => {
                 <button
                   key={index}
                   onClick={() => setActiveImageIndex(index)}
-                  className={`w-20 h-20 bg-gray-100 rounded-lg overflow-hidden cursor-pointer border-2 ${
-                    activeImageIndex === index
-                      ? "border-gray-900"
-                      : "border-gray-300 hover:border-gray-400"
-                  }`}
+                  className={`w-20 h-20 bg-gray-100 rounded-lg overflow-hidden cursor-pointer border-2 ${activeImageIndex === index
+                    ? "border-gray-900"
+                    : "border-gray-300 hover:border-gray-400"
+                    }`}
                 >
                   <img alt="" src={img} className="w-full h-full object-cover" />
                 </button>
@@ -100,7 +99,7 @@ const ViewMore = () => {
 
           {/* ---------------- PRODUCT DETAILS ---------------- */}
           <div className="space-y-6">
-            
+
             <p className="text-sm text-gray-500 uppercase tracking-wide">
               {ViewMoreDetails.category || "Product"}
             </p>
@@ -141,11 +140,10 @@ const ViewMore = () => {
                 type="button"
                 onClick={() => handleAddCart(ViewMoreDetails)}
                 disabled={addStatus === "loading"}
-                className={`flex-1 py-4 px-8 rounded-lg font-semibold text-lg flex items-center justify-center transition ${
-                  addStatus === "success"
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-900 text-white hover:bg-gray-800"
-                }`}
+                className={`flex-1 py-4 px-8 rounded-lg font-semibold text-lg flex items-center justify-center transition ${addStatus === "success"
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-900 text-white hover:bg-gray-800"
+                  }`}
               >
 
                 {addStatus === "loading" && "Adding..."}

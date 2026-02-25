@@ -23,7 +23,7 @@ const NavBars = () => {
         setTokens(token)
         if (token) {
             axios
-                .get("https://ecommercebackend-1-fwcd.onrender.com/api/cart", {
+                .get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/cart", {
                     headers: { Authorization: token },
                 })
                 .then((res) => {
@@ -118,7 +118,7 @@ const NavBars = () => {
                     <p className="block text-gray-700 font-medium">Profile</p>
                     <p onClick={() => navigate("/ecommerce/ecommerce/home/order-history")} className="block text-gray-700 font-medium">OrderHistory</p>
                     {/* <p href="#" className="block text-gray-700 font-medium">About</p> */}
-                    
+
                 </div>
             )}
         </header>

@@ -28,9 +28,9 @@ const AdminSubSubCategory = () => {
   const fetchSubCategories = useCallback(async () => {
     try {
       const [subSubRes, subCatRes, catRes] = await Promise.all([
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory"),
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/subcategories"),
-        axios.get("https://ecommercebackend-1-fwcd.onrender.com/api/category", {
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory"),
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories"),
+        axios.get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/category", {
           headers: { Authorization: token },
         }),
       ]);
@@ -46,7 +46,7 @@ const AdminSubSubCategory = () => {
     try {
       const id = parseInt(categoryId);
       const res = await axios.get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/category/${id}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/category/${id}`,
         {
           headers: { Authorization: token },
         }
@@ -74,7 +74,7 @@ const AdminSubSubCategory = () => {
 
     try {
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory/add",
         formData,
         {
           headers: {
@@ -119,7 +119,7 @@ const AdminSubSubCategory = () => {
 
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory/${subSubCatId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory/${subSubCatId}`,
         formData,
         {
           headers: {
@@ -136,7 +136,7 @@ const AdminSubSubCategory = () => {
 
   const handleDeleteCat = async (id) => {
     try {
-      await axios.delete(`https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/${id}`, {
+      await axios.delete(`https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/${id}`, {
         headers: { Authorization: token },
       });
       fetchSubCategories();
@@ -267,7 +267,7 @@ const AdminSubSubCategory = () => {
           <div>{item.subsub_name}</div>
           <div>
             <img
-              src={`https://ecommercebackend-1-fwcd.onrender.com${item.image_url}`}
+              src={`https://site--portfolio-api--kwybpvsjlw26.code.run${item.image_url}`}
               alt="subsub"
               className={adminSubSubCatCss.rowImage}
             />

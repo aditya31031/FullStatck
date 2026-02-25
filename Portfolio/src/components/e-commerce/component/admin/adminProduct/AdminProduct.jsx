@@ -38,7 +38,7 @@ const AdminProduct = () => {
   const fetchProducts = useCallback(() => {
     axios
       .get(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/products/allProducts",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/allProducts",
         {
           headers: { Authorization: token },
         }
@@ -49,7 +49,7 @@ const AdminProduct = () => {
 
   const fetchCategories = () => {
     axios
-      .get("https://ecommercebackend-1-fwcd.onrender.com/api/category")
+      .get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/category")
       .then((res) => setGetCategoryDetails(res.data))
       .catch((err) => console.log("Fetch category error", err));
   };
@@ -57,7 +57,7 @@ const AdminProduct = () => {
   const fetchSubCategories = (categoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/category/${categoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/category/${categoryId}`
       )
       .then((res) => setGetSubCategoryDetails(res.data))
       .catch((err) => {
@@ -69,7 +69,7 @@ const AdminProduct = () => {
   const fetchSubSubCategories = (subcategoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory/subcategory/${subcategoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory/subcategory/${subcategoryId}`
       )
       .then((res) => setGetSubSubCategoryDetails(res.data))
       .catch((err) => {
@@ -81,7 +81,7 @@ const AdminProduct = () => {
   const fetchSubSubSubCategories = (subSubcategoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subsubsubcategory/subsubcategory/${subSubcategoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubsubcategory/subsubcategory/${subSubcategoryId}`
       )
       .then((res) => setGetSubSubSubCategoryDetails(res.data))
       .catch((err) => {
@@ -127,7 +127,7 @@ const AdminProduct = () => {
   const productDelete = (productId) => {
     axios
       .delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/products/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/${productId}`,
         { headers: { Authorization: token } }
       )
       .then(() => fetchProducts())
@@ -162,7 +162,7 @@ const AdminProduct = () => {
 
     try {
       const response = await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/products/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/${productId}`,
         formData,
         {
           headers: {
@@ -307,40 +307,40 @@ const AdminProduct = () => {
                 </div>
 
                 <div className={prodCss.productField}>
-  <label>Image</label>
-  <input
-    type="file"
-    onChange={(e) => {
-      const newFile = e.target.files[0];
+                  <label>Image</label>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      const newFile = e.target.files[0];
 
-      if (newFile) {
-        // 🧹 Clear the old image reference and show the new one
-        setProductImage(newFile);
-        setPreviewImage(URL.createObjectURL(newFile));
-      } else {
-        // If no new image is chosen, retain the old preview
-        setProductImage(productImage);
-      }
-    }}
-  />
+                      if (newFile) {
+                        // 🧹 Clear the old image reference and show the new one
+                        setProductImage(newFile);
+                        setPreviewImage(URL.createObjectURL(newFile));
+                      } else {
+                        // If no new image is chosen, retain the old preview
+                        setProductImage(productImage);
+                      }
+                    }}
+                  />
 
-  {/* ✅ Preview current or newly selected image */}
-  {previewImage ? (
-    <img
-      src={previewImage}
-      alt="preview"
-      style={{ width: "100px", marginTop: "8px" }}
-    />
-  ) : (
-    productImage && (
-      <img
-        src={`https://ecommercebackend-1-fwcd.onrender.com/${productImage}`}
-        alt="current"
-        style={{ width: "100px", marginTop: "8px" }}
-      />
-    )
-  )}
-</div>
+                  {/* ✅ Preview current or newly selected image */}
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt="preview"
+                      style={{ width: "100px", marginTop: "8px" }}
+                    />
+                  ) : (
+                    productImage && (
+                      <img
+                        src={`https://site--portfolio-api--kwybpvsjlw26.code.run/${productImage}`}
+                        alt="current"
+                        style={{ width: "100px", marginTop: "8px" }}
+                      />
+                    )
+                  )}
+                </div>
 
 
                 <div className={prodCss.productField}>
@@ -392,7 +392,7 @@ const AdminProduct = () => {
                   src={
                     product.image_url.startsWith("http")
                       ? product.image_url
-                      : `https://ecommercebackend-1-fwcd.onrender.com/${product.image_url}`
+                      : `https://site--portfolio-api--kwybpvsjlw26.code.run/${product.image_url}`
                   }
                   alt="product"
                 />
@@ -418,7 +418,7 @@ const AdminProduct = () => {
                     setProductSubSubSubCategory(product.subsubsub_id || "");
                     setProductImage(product.image_url || null);
                     setPreviewImage(
-                      `https://ecommercebackend-1-fwcd.onrender.com/${product.image_url}`
+                      `https://site--portfolio-api--kwybpvsjlw26.code.run/${product.image_url}`
                     );
                   }}>
                   <img src={editImg} alt="edit" />

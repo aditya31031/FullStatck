@@ -37,7 +37,7 @@ const Seller = () => {
   const fetchProducts = useCallback(() => {
     axios
       .get(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/products/my-products",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/my-products",
         {
           headers: { Authorization: token },
         }
@@ -48,7 +48,7 @@ const Seller = () => {
 
   const fetchCategories = () => {
     axios
-      .get("https://ecommercebackend-1-fwcd.onrender.com/api/category")
+      .get("https://site--portfolio-api--kwybpvsjlw26.code.run/api/category")
       .then((res) => setGetCategoryDetails(res.data))
       .catch((err) => console.log("Fetch category error", err));
   };
@@ -56,7 +56,7 @@ const Seller = () => {
   const fetchSubCategories = (categoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subcategories/category/${categoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subcategories/category/${categoryId}`
       )
       .then((res) => setGetSubCategoryDetails(res.data))
       .catch((err) => {
@@ -68,7 +68,7 @@ const Seller = () => {
   const fetchSubSubCategories = (subcategoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subsubcategory/subcategory/${subcategoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubcategory/subcategory/${subcategoryId}`
       )
       .then((res) => setGetSubSubCategoryDetails(res.data))
       .catch((err) => {
@@ -80,7 +80,7 @@ const Seller = () => {
   const fetchSubSubSubCategories = (subSubcategoryId) => {
     axios
       .get(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/subsubsubcategory/subsubcategory/${subSubcategoryId}`
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/subsubsubcategory/subsubcategory/${subSubcategoryId}`
       )
       .then((res) => setGetSubSubSubCategoryDetails(res.data))
       .catch((err) => {
@@ -92,7 +92,7 @@ const Seller = () => {
   const productDelete = (productId) => {
     axios
       .delete(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/products/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/${productId}`,
         {
           headers: { Authorization: token },
         }
@@ -118,7 +118,7 @@ const Seller = () => {
 
     try {
       await axios.post(
-        "https://ecommercebackend-1-fwcd.onrender.com/api/products/add",
+        "https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/add",
         formData,
         {
           headers: {
@@ -151,7 +151,7 @@ const Seller = () => {
 
     try {
       await axios.put(
-        `https://ecommercebackend-1-fwcd.onrender.com/api/products/${productId}`,
+        `https://site--portfolio-api--kwybpvsjlw26.code.run/api/products/${productId}`,
         formData,
         {
           headers: {

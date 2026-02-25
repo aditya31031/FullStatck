@@ -31,7 +31,7 @@ const Register = () => {
       password: registerPassword,
       role: registerRole.toLowerCase(),
     };
-    // https://ecommercebackend-1-fwcd.onrender.com
+    // https://site--portfolio-api--kwybpvsjlw26.code.run
     //
     // console.log(registerName,registerEmail,registerPassword,registerRole)
     try {
@@ -57,8 +57,8 @@ const Register = () => {
     <div className="registerbody">
       <div className="register">
         <div className="reHedder">
-        <p>Register</p>
-        <button onClick={()=>{navigate("/ecommerce")}} className="homeBtn">Home</button>
+          <p>Register</p>
+          <button onClick={() => { navigate("/ecommerce") }} className="homeBtn">Home</button>
         </div>
         <form onSubmit={handleRegister}>
           <label>Name</label>
@@ -91,13 +91,13 @@ const Register = () => {
 
           <label>Role</label>
           <select
-          className="registerList"
+            className="registerList"
             value={registerRole}
             onChange={(e) => setRegisterRole(e.target.value)}
           >
-            <option className="OptionValue "  value="">Select</option>
-            <option className="OptionValue "  value="Customer">Customer</option>
-            <option className="OptionValue "  value="Seller">Seller</option>
+            <option className="OptionValue " value="">Select</option>
+            <option className="OptionValue " value="Customer">Customer</option>
+            <option className="OptionValue " value="Seller">Seller</option>
           </select>
 
           <button className="regSubBtn" type="submit">Submit</button>
